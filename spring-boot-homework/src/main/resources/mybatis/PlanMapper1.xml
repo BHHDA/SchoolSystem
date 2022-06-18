@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homework.springboothomework.dao.PlanDao">
+
+    <!--    //管理员添加一条安排记录-->
+    <insert id="addOne" parameterType="homework.springboothomework.pojo.Plan">
+        insert into plan(jobno,jname,area,starttime,endtime)
+        values(#{jobno},#{jname},#{area},#{starttime},#{endtime})
+    </insert>
+    <delete id="deleteOne" parameterType="int">
+        delete from  plan
+        where no=#{no}
+    </delete>
+    <!--    //查询当天安排记录-->
+    <select id="findListByTime" resultType="homework.springboothomework.pojo.Plan" parameterType="Date">
+        select  * from plan where   to_days(#{time})=to_days(starttime)</select>
+<!--    //查询当天值班安排记录-->
+<!--    List<Plan> findListByTimeAndD(Date time);-->
+    <select id="findListByTimeAndD" resultType="homework.springboothomework.pojo.Plan" parameterType="Date">
+        select  * from plan where  (area='北门' or area='南门') and to_days(#{time})=to_days(starttime)</select>
+<!--    //查询当天核检安排记录-->
+<!--    List<Plan> findListByTimeAndN(Date time);-->
+    <select id="findListByTimeAndN" resultType="homework.springboothomework.pojo.Plan" parameterType="Date">
+        select  * from plan where  area!='北门' and area!='南门' and to_days(#{time})=to_days(starttime)</select>
+<!--    //值班人员或核酸检测人员登录验证-->
+<!--    Plan findOneByJobno(@Param("jobno") Integer jobno, @Param("time") Date time);-->
+    <select id="findOneByJobno" resultType="homework.springboothomework.pojo.Plan" >
+        select * from plan where jobno=#{jobno} and to_days(#{time})=to_days(starttime)
+        and endtime>#{time}
+    </select>
+<!--    //员工查询自己当天的安排记录-->
+    <select id="findListByJT" resultType="homework.springboothomework.pojo.Plan">
+        select * from plan  where
+        jobno=#{jobno} and to_days(#{time})=to_days(starttime)
+        order by starttime asc
+
+    </select>
+<!--    //查询指定记录-->
+<!--    Plan findOneByNo(Integer no);-->
+    <select id="findOneByNo" parameterType="int" resultType="homework.springboothomework.pojo.Plan">
+        select * from plan where no=#{no}
+    </select>
+<!--    //更新指定记录-->
+<!--    boolean updateOneByNo(Plan plan);-->
+<!--    //查询所有记录-->
+<!--    //查询所有记录-->
+<!--    PageInfo<Plan> findAll();-->
+    <update id="updateOneByNo">
+        update plan <set>
+        <if test="jobno!=null and jobno!=''">
+            jobno=#{jobno},
+        </if>
+        <if test="jname!=null and jname!=''">
+            jname=#{jname},
+        </if>
+        <if test="area!=null and area!=''">
+            area=#{area},
+    </if>
+        <if test="starttime!=null and starttime!=''">
+            starttime=#{starttime},
+        </if> <if test="endtime!=null and endtime!=''">
+        endtime=#{endtime},
+    </if>
+    </set>
+<where>
+    no=#{no}
+</where>
+    </update>
+    <select id="findAll" resultType="homework.springboothomework.pojo.Plan">
+        select * from plan  order by starttime asc</select>
+
+<!--    //查询员工安排记录-->
+<!--    List<Plan> findListByJno(Integer jno);-->
+    <select id="findListByJno" resultType="homework.springboothomework.pojo.Plan" parameterType="int">
+        select  * from plan where   jobno=#{jno}</select>
+<!--    //查询所有值班记录-->
+<!--    List<Plan> findAllDoorer();-->
+    <select id="findAllDoorer" resultType="homework.springboothomework.pojo.Plan">
+        select * from plan where area='北门' or area='南门' order by starttime asc</select>
+<!--    //查询所有核检记录-->
+<!--    List<Plan> findAllNucleictester();-->
+    <select id="findAllNucleictester" resultType="homework.springboothomework.pojo.Plan">
+        select * from plan where area!='北门' and area!='南门' order by starttime asc</select>
+</mapper>

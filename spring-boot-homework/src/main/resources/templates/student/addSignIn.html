@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>修改学生信息</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<div class="ui container">
+  <br>
+  <h3>每日健康打卡</h3>
+  <form  th:action="@{/student/myAddSignIn}" method="post" th:object="${signIn}">
+<!--    <input type="hidden" th:value="*{sno}" name="sno">-->
+    <table class="ui celled attached table" style="margin-top: 40px !important;">
+      <thead>
+      <tr>
+        <th>问题</th>
+        <th>选项</th>
+      </tr></thead>
+      <tbody>
+      <tr>
+    <div class="inline fields">
+      <td>
+      <label>1、今天你的体温是多少？</label>
+      </td>
+      <td>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="temperature" value="1" checked th:checked="*{temperature} eq '1'"/>
+          <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+          <label>37.2度及以下</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="temperature" value="2"  th:checked="*{temperature} eq '2'"/>
+          <label>37.3度-37.9度</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="temperature" value="3" th:checked="*{temperature} eq '3'"/>
+          <label>38度及以上</label>
+        </div>
+      </div>
+      </td>
+    </div>
+      </tr>
+      <tr>
+    <div class="inline fields">
+      <td>
+      <label>2、今天你的身体状况是？</label>
+      </td>
+      <td>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="body" value="0" th:checked="*{body} eq '0'"/>
+          <label>健康</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="body" value="1" th:checked="*{body} eq '1'"/>
+          <label>发烧</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="body" value="2"  th:checked="*{body} eq '2'"/>
+          <label>乏力</label>
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="body" value="3" th:checked="*{body} eq 3"/>
+          <label>干咳</label>
+        </div>
+      </div>
+      </td>
+    </div>
+      </tr>
+      <tr>
+    <div class="inline fields">
+      <td>
+      <label>3、近14天你或你的共同居住人是否有疫情中、高风险区域人员接触史？</label>
+      </td>
+      <td>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="t1" value="1"  th:checked="*{t1} eq '1'"/>
+          <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+          <label>是</label>
+        </div>
+        <div class="ui radio checkbox">
+          <input type="radio"  name="t1"  value="0" th:checked="*{t1} eq '0'"/>
+          <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+          <label>否</label>
+        </div>
+      </div>
+      </td>
+    </div>
+      </tr>
+      <tr>
+    <div class="inline fields">
+      <td>
+      <label>4、近14天你或你的共同居住人是否和确诊、疑似病人接触过？</label>
+      </td>
+      <td>
+      <div class="field">
+        <div class="ui radio checkbox">
+          <input type="radio"  name="t2" value="1" th:checked="*{t2} eq '1'"/>
+          <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+          <label>是</label>
+        </div>
+        <div class="ui radio checkbox">
+          <input type="radio"  name="t2" value="0" th:checked="*{t2} eq '0'"/>
+          <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+          <label>否</label>
+        </div>
+    </div>
+      </td>
+    </div>
+      </tr>
+      <tr>
+    <div class="inline fields">
+      <td>
+      <label>5、本人是否承诺以上所填报的全部内容均属实、准确，不存在任何隐瞒与不实的情况，更无遗漏之处？</label>
+      </td>
+      <td>
+        <div class="field">
+          <div class="ui radio checkbox">
+            <input type="radio"  name="t3" value="1" th:checked="*{t3} eq '1'"/>
+            <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+            <label>是</label>
+          </div>
+          <div class="ui radio checkbox">
+            <input type="radio"  name="t3" value="0" th:checked="*{t3} eq '0'"/>
+            <!--                <input type="radio" name="area" tabindex="0" class="hidden" th:checked="*{area} eq '南门'>-->
+            <label>否</label>
+          </div>
+      </div>
+      </td>
+
+    </div>
+
+      </tr>
+
+
+
+      </tbody>
+    </table>
+    <button class="ui button" type="submit">提交</button>
+  </form>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+  $(".message .close").on('click',function () {
+    $(this).closest(".message")
+            .transition("fade");
+  })
+</script>
+</body>
+</html>

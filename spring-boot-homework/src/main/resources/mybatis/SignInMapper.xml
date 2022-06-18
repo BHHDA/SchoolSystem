@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homework.springboothomework.dao.SignInDao">
+<!--    //查询学生当天是否有健康上报的记录-->
+<!--    int findOneByTimeandSno(@Param("sno")Integer sno,@Param("time") Date time);-->
+    <select id="findOneByTimeandSno" resultType="int">
+        select  count(*) from signin where sno=#{sno} and to_days(#{time})=to_days(time)
+    </select>
+<!--    //学生健康上报-->
+<!--    boolean addOne(SignIn signIn);-->
+    <insert id="addOne" parameterType="homework.springboothomework.pojo.SignIn">
+        insert into signin(sno,sname,temperature,body,t1,t2,t3,time) values (#{sno},#{sname},#{temperature},#{body},#{t1},#{t2},#{t3},#{time})
+    </insert>
+</mapper>

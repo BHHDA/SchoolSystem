@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homework.springboothomework.dao.TimeerDao">
+<!--    //添加-->
+    <insert id="addOne" parameterType="homework.springboothomework.pojo.Timeer">
+        insert into timeer(jobno,jname,sno,sname,outtime,outarea,heathcode)
+values(#{jobno},#{jname},#{sno},#{sname},#{outtime},#{outarea},#{heathcode})
+    </insert>
+<!--    //查询所有-->
+<!--    List<Timeer> findAll();-->
+    <select id="findAll" resultType="homework.springboothomework.pojo.Timeer">
+        select * from timeer  order by outtime asc
+    </select>
+<!--    //根据记录时间查询-->
+<!--    List<Timeer> findListByTime(Date date);-->
+    <select id="findListByTime" resultType="homework.springboothomework.pojo.Timeer">
+        select * from timeer where to_days(#{time})=to_days(cometime) order by cometime asc
+    </select>
+<!--    //查看学生是否在校-->
+<!--    List<Timeer> findLocal(Integer sno);-->
+    <select id="findLocal" resultType="homework.springboothomework.pojo.Timeer">
+        select  * from timeer where sno=#{sno}  order by outtime desc
+    </select>
+<!--    //添加返校记录-->
+<!--    boolean updateOne(Timeer timeer);-->
+    <update id="updateOne" parameterType="homework.springboothomework.pojo.Timeer">
+        update timeer set cometime=#{cometime}, comearea=#{comearea},jname=#{jname},jobno=#{jobno} where no=#{no}
+    </update>
+</mapper>

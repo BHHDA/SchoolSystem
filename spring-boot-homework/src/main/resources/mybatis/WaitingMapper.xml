@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homework.springboothomework.dao.WaitingDao">
+
+<!--    //查询所有待测学生-->
+<!--    List<Waiting> findAll();-->
+    <select id="findAll" resultType="homework.springboothomework.pojo.Waiting">
+        select  * from waiting  order by sno asc
+    </select>
+<!--    //添加一个待测学生-->
+<!--    boolean addOne(Waiting waiting);-->
+    <insert id="addOne" parameterType="homework.springboothomework.pojo.Waiting">
+        insert into waiting(sno,sname)
+        values(#{sno},#{sname})
+    </insert>
+<!--    //删除待测学生-->
+<!--    boolean deleteOne(Integer sno);-->
+    <delete id="deleteOne" parameterType="int">
+        delete from waiting where sno=#{sno}
+    </delete>
+<!--    //模糊查询-->
+<!--    PageInfo<Waiting> findListBySno(String sno,Page page);-->
+    <select id="findListBySno" resultType="homework.springboothomework.pojo.Waiting">
+        select  * from waiting
+        <where>
+        <if test="sno!=null and sno!=''">
+            sno like concat ('%',#{sno},'%')
+        </if>
+        order by sno asc
+        </where>
+
+    </select>
+</mapper>

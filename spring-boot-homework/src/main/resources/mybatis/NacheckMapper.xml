@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="homework.springboothomework.dao.NacheckDao">
+<!--    添加检测更改记录-->
+    <insert id="addOne" parameterType="homework.springboothomework.pojo.Nacheck">
+        insert into nacheck(jobno,jname,sno,sname,checktime,changetime,healthcode) values
+        (#{jobno},#{jname},#{sno},#{sname},#{checktime},#{changetime},#{healthcode})
+    </insert>
+<!--//根据学号查询记录-->
+    <select id="findOneBySno" parameterType="int" resultType="homework.springboothomework.pojo.Nacheck">
+        select * from nacheck where sno=#{sno}
+    </select>
+<!--    /根据工号查询记录-->
+    <select id="findOneByJobno" parameterType="int" resultType="homework.springboothomework.pojo.Nacheck">
+    select * from nacheck where jobno=#{jobno}
+    </select>
+<!--    //查询所有-->
+<!--    List<Nacheck> findAll();-->
+    <select id="findAll" resultType="homework.springboothomework.pojo.Nacheck">
+        select * from nacheck  order by changetime asc
+    </select>
+<!--    //根据记录时间查询-->
+<!--    List<Nacheck> findListByTime(Date date);-->
+    <select id="findListByTime" resultType="homework.springboothomework.pojo.Nacheck">
+        select * from nacheck where to_days(#{time})=to_days(changetime) order by changetime asc
+    </select>
+</mapper>

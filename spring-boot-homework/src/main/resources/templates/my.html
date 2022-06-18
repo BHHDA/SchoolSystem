@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>学生列表</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<div class="ui container">
+  <div class="ui success  message" th:unless="${#strings.isEmpty(message)}">
+    <i class="close icon"></i>
+    <div class="header">提示：</div>
+    <p th:text="${message}"></p>
+  </div>
+  <table class="ui celled attached table" style="margin-top: 40px !important;">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>密码</th>
+      <th>姓名</th>
+      <th>年龄</th>
+    </tr></thead>
+    <tbody>
+    <tr>
+      <td th:text="${admin.no}"></td>
+      <td th:text="${admin.password}"></td>
+      <td th:text="${admin.name}"></td>
+      <td th:text="${admin.age}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+  $(".message .close").on('click',function () {
+    $(this).closest(".message")
+            .transition("fade");
+  })
+</script>
+</body>
+</html>

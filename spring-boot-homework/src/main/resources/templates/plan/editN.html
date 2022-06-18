@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改值班人员信息</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<br>
+<div class="ui container form">
+    <form class="ui form" th:action="@{/plan/editN}" method="post" th:object="${plan}">
+        <input type="hidden" th:value="*{no}" name="no">
+        <div class="field">
+            <label>工号</label>
+            <input type="text" name="jobno" placeholder="请输入工号" required th:value="*{jobno}">
+        </div>
+                <div class="field">
+                    <label>值班区域</label>
+                    <input type="text" name="area" placeholder="请输入值班区域" required th:value="*{area}">
+                </div>
+
+        <div class="field">
+            <input type="datetime-local" name="starttime" placeholder="请输入开始时间"
+                   required th:value="*{starttime}">
+        </div>
+        <div class="field">
+            <input type="datetime-local" name="endtime" placeholder="请输入结束时间"
+                   required th:value="*{endtime}">
+        </div>
+        <button class="ui button" type="submit">提交</button>
+    </form>
+
+    <div class="ui success  message" th:unless="${#strings.isEmpty(message)}">
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${message}"></p>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $(".message .close").on('click',function () {
+        $(this).closest(".message")
+            .transition("fade");
+    })
+</script>
+</body>
+</html>

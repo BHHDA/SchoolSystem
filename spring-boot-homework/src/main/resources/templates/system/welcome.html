@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+<div th:fragment="welcome">
+	<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; ">
+		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.loginUser.type == 1}" th:text="${session.admin.name}"></p>
+		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.loginUser.type == 2}" th:text="${session.student.sname}"></p>
+		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.loginUser.type == 3}" th:text="${session.doorer.jname}"></p>
+		<p style="font-size: 50px; line-height: 60px; height: 60px;" th:if="${session.loginUser.type == 4}" th:text="${session.nucleictester.jname}"></p>
+		<p style="font-size: 25px; line-height: 30px; height: 30px;">校园防疫出入信息管理系统</p>
+		<p>开发人员：陈郑旭，黄德安</p>
+
+		<hr />
+		<h2>系统环境</h2>
+		<p>系统环境：Windows</p>
+		<p>开发工具：IDEA</p>
+		<p>Java版本：JDK 1.8</p>
+		<p>服务器：tomcat 8.5</p>
+		<p>数据库：MySQL 6.0</p>
+		<p>系统采用技术： springboot + mybatis + maven</p>
+	</div>
+</div>
+</body>
+</html>

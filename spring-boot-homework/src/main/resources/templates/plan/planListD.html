@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>值班人员列表</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<div class="ui container">
+  <div class="ui attached segment">
+    <form th:action="@{/plan/plan_list_Doorer}" method="post" style="display: inline-block !important;">
+      <input type="date" name="time" required>
+      <input type="submit" value="搜索">
+    </form>
+    <a th:href="@{/plan/updateD}" class="ui button mini teal" style="margin-left: 30px !important;">新增</a>
+  </div>
+  <div class="ui success  message" th:unless="${#strings.isEmpty(message)}">
+    <i class="close icon"></i>
+    <div class="header">提示：</div>
+    <p th:text="${message}"></p>
+  </div>
+  <table class="ui celled attached table" style="margin-top: 40px !important;">
+    <thead>
+    <tr>
+      <th>工号</th>
+      <th>姓名</th>
+      <th>区域</th>
+      <th>开始时间</th>
+      <th>结束时间</th>
+      <th>操作</th>
+    </tr></thead>
+    <tbody>
+    <tr th:each="plan : ${planpage.list}">
+      <td th:text="${plan.jobno}"></td>
+      <td th:text="${plan.jname}"></td>
+      <td th:text="${plan.area}"></td>
+      <td th:text="${plan.starttime}"></td>
+      <td th:text="${plan.endtime}"></td>
+
+
+      <td>
+        <a th:href="@{/plan/editD/{no}(no=${plan.no})}" class="ui button mini pink">编辑</a>
+        <a th:href="@{/plan/deleteD/{no}(no=${plan.no})}" class="ui button mini teal">删除</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="ui attached segment" >
+    <table class="m-mobile-wide" width="425px">
+      <tbody>
+      <tr align="center">
+        <td>
+          <a th:href="@{/plan/plan_list_Doorer(pageNum=${planpage.pageNum}-1)}"  class="ui button basic mini" th:unless="${planpage.isFirstPage}">上一页</a>
+        </td>
+        <td>
+          第
+          <h8 th:text="${planpage.pageNum}"></h8>
+          页/共
+          <h8 th:text="${planpage.pages}"></h8>
+          页
+          共
+          <h8 th:text="${planpage.total}"></h8>
+          条
+        </td>
+        <td>
+          <form name="pageForm" th:action="@{/plan/plan_list_Doorer}" method="get">
+            <div class="ui mini input ">
+              <input type="text" class="m-bg" name="pageNum" placeholder="页码" style="width: 50px!important; height: 27.76px!important;" required>
+              <button type="submit" style="font-size: 11px!important;width: 30px!important; height: 0px!important; border: none;margin: 5px;padding: 0;" class="button mini">
+                跳转
+              </button>
+            </div>
+          </form>
+        </td>
+        <td> &nbsp;</td>
+        <td  style="float: right">
+          <a th:href="@{/plan/plan_list_Doorer(pageNum=${planpage.pageNum}+1)}" class="ui button basic mini " style="float: right;" th:unless="${planpage.isLastPage}">下一页</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+  $(".message .close").on('click',function () {
+    $(this).closest(".message")
+            .transition("fade");
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>学生列表</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+<div class="ui container">
+	<div class="ui attached segment">
+		<form th:action="@{/student/student_list}" method="post" style="display: inline-block !important;">
+			<input type="text" name="sno" placeholder="输入学号查找" required>
+			<input type="submit" value="搜索">
+		</form>
+		<a th:href="@{/student/update}" class="ui button mini teal" style="margin-left: 30px !important;">新增</a>
+	</div>
+	<div class="ui success  message" th:unless="${#strings.isEmpty(message)}">
+		<i class="close icon"></i>
+		<div class="header">提示：</div>
+		<p th:text="${message}"></p>
+	</div>
+	<table class="ui celled attached table" style="margin-top: 40px !important;">
+		<thead>
+		<tr>
+			<th>学号</th>
+			<th>姓名</th>
+			<th>性别</th>
+			<th>年龄</th>
+			<th>专业</th>
+			<th>位置</th>
+			<th>健康码</th>
+			<th>提交状态</th>
+			<th>操作</th>
+		</tr></thead>
+		<tbody>
+		<tr th:each="student : ${studentpage.list}">
+			<td th:text="${student.sno}"></td>
+			<td th:text="${student.sname}"></td>
+			<td th:text="${student.sex}"></td>
+			<td th:text="${student.age}"></td>
+			<td th:text="${student.major}"></td>
+			<td th:text="${student.local}"></td>
+			<td th:text="${student.healthcode}"></td>
+			<td th:text="${student.clockin}"></td>
+			<td>
+				<a th:href="@{/student/edit/{sno}(sno=${student.sno})}" class="ui button mini pink">编辑</a>
+				<a th:href="@{/student/delete/{sno}(sno=${student.sno})}" class="ui button mini teal">删除</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="ui attached segment" >
+		<table class="m-mobile-wide" width="425px">
+			<tbody>
+			<tr align="center">
+				<td>
+					<a th:href="@{/student/student_list(pageNum=${studentpage.pageNum}-1)}"  class="ui button basic mini" th:unless="${studentpage.isFirstPage}">上一页</a>
+				</td>
+				<td>
+					第
+					<h8 th:text="${studentpage.pageNum}"></h8>
+					页/共
+					<h8 th:text="${studentpage.pages}"></h8>
+					页
+					共
+					<h8 th:text="${studentpage.total}"></h8>
+					条
+				</td>
+				<td>
+					<form name="pageForm" th:action="@{/student/student_list}" method="get">
+						<div class="ui mini input ">
+							<input type="text" class="m-bg" name="pageNum" placeholder="页码" style="width: 50px!important; height: 27.76px!important;" required>
+							<button type="submit" style="font-size: 11px!important;width: 30px!important; height: 0px!important; border: none;margin: 5px;padding: 0;" class="button mini">
+								跳转
+							</button>
+						</div>
+					</form>
+				</td>
+				<td> &nbsp;</td>
+				<td  style="float: right">
+					<a th:href="@{/student/student_list(pageNum=${studentpage.pageNum}+1)}" class="ui button basic mini " style="float: right;" th:unless="${studentpage.isLastPage}">下一页</a>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+	$(".message .close").on('click',function () {
+		$(this).closest(".message")
+				.transition("fade");
+	})
+</script>
+</body>
+</html>
