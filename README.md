@@ -1,1 +1,1 @@
-基于SpringBoot+thymeleaf+Mybatis
+基于SpringBoot+thymeleaf+Mybatis的校园防系统
